@@ -10,13 +10,38 @@ $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
   if (!empty($_POST)) {
   	$nickname = $_POST['nickname'];
   	$comment = $_POST['comment'];
-
+ 
+   //SQL文作成
    $sql = 'INSERT INTO `posts` (`nickname`, `comment`, `created`) VALUES ("'.$nickname.'","'.$comment.'",now());';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
 
+  //SELECT文の実行
+
+  //SQL文作成(SELECT文)
+  $sql = 'SELECT * FROM `posts`;';
+
+  //実行
+$stmt = $dbh->prepare($sql);
+  $stmt->execute();
+  	
+   //配列で取得したデータを格納
+   //配列を初期化
+   $post_datas = array();
+  //繰り返し文でデータ取得(フェッチ)
+  while (1) {
+  	$rec = $stmt->fetch(PDO::FETCH_ASSOC);
+  	if ($rec == false) {
+  		break;
+  		# code...
+  	}
+
+  	//echo $rec['nickname'];
+  	$post_datas[] = $rec;
+  }
   	# code...
   }
+  
 
    
 
@@ -35,6 +60,14 @@ $dbh = null;
       <p><button type="submit" >つぶやく</button></p>
     </form>
     <!-- ここにニックネーム、つぶやいた内容、日付を表示する -->
+    <?php
+      foreach ($post_datas as $post_each) {
+         echo $post_each['nickname'].'<br>';
+         echo $post_each['comment'].'<br>';   
+         echo $post_each['created'].'<br>';   
+         echo '<hr>'; 
+      }
+      ?>
 
 </body>
 </html>
