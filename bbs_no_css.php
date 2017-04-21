@@ -13,6 +13,9 @@ $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
  
    //SQL文作成
    $sql = 'INSERT INTO `posts` (`nickname`, `comment`, `created`) VALUES ("'.$nickname.'","'.$comment.'",now());';
+
+var_dump($sql);
+
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
 
