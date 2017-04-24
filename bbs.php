@@ -120,7 +120,7 @@ $dbh = null;
         <div class="timeline-centered">
           <article class="timeline-entry">
           <?php if (!empty($_POST)) {
-            foreach ($post_detas as $post_each){?>
+            foreach ($post_datas as $post_each){?>
               <div class="timeline-entry-inner">
                   <div class="timeline-icon bg-success">
                       <i class="entypo-feather"></i>
@@ -129,7 +129,17 @@ $dbh = null;
                   <div class="timeline-label">
                       <h2><a href="#"><?php echo $post_each['nickname'].'<br>';?>
                       </a> <span><?php echo $post_each['comment'].'<br>';?></span></h2>
-                      <p><?php echo $post_each['created'].'<br>'; ?></p>
+                    
+                      <?php
+                      //一旦日時型に変換（String型からDateTime型に変換）
+                      $created = strtotime($post_each['created']);
+                      
+                      //書式を変換
+                      $created = date('Y-m-d',$created);
+                      ?>
+                      
+                      <p><?php echo $created; ?><p>
+
                   </div>
               </div>
               <?php }} ?>
