@@ -1,9 +1,17 @@
 <?php
 //データベースに接続し、SQLを実行し、切断する部分を記述しよう
 // ここにDBに登録する処理を記述する
-$dsn = 'mysql:dbname=oneline_bbs;host=localhost';
-  $user = 'root';
-  $password='';
+// $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
+//   $user = 'root';
+//   $password='';
+// ※以下はサンプルなので、自身のサーバー情報を設定してください。
+
+// dbnameをロリポップのデータベース名に、hostをロリポップのサーバーに変更
+$dsn = 'mysql:dbname=LAA0854009-onelinebbs;host=mysql122.phy.lolipop.lan';
+// userをロリポップのユーザー名に変更
+$user = 'LAA0854009';
+// passwordをロリポップのパスワードに変更
+$password = 'narupon0524';
   $dbh = new PDO($dsn, $user, $password);
   $dbh->query('SET NAMES utf8');
   //POST送信されたらINSERT文を実行
