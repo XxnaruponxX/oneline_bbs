@@ -14,15 +14,15 @@ $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
    //SQL文作成
    $sql = 'INSERT INTO `posts` (`nickname`, `comment`, `created`) VALUES ("'.$nickname.'","'.$comment.'",now());';
 
-var_dump($sql);
+
 
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
-
+}
   //SELECT文の実行
 
   //SQL文作成(SELECT文)
-  $sql = 'SELECT * FROM `posts`;';
+  $sql = 'SELECT * FROM `posts` ORDER BY `created` DESC;';
 
   //実行
 $stmt = $dbh->prepare($sql);
@@ -43,7 +43,7 @@ $stmt = $dbh->prepare($sql);
     $post_datas[] = $rec;
   }
     # code...
-  }
+  
   
 
    
@@ -119,16 +119,20 @@ $dbh = null;
       <div class="col-md-8 content-margin-top">
         <div class="timeline-centered">
           <article class="timeline-entry">
+          <?php if (!empty($_POST)) {
+            foreach ($post_detas as $post_each){?>
               <div class="timeline-entry-inner">
                   <div class="timeline-icon bg-success">
                       <i class="entypo-feather"></i>
                       <i class="fa fa-cogs"></i>
                   </div>
                   <div class="timeline-label">
-                      <h2><a href="#">seedくん</a> <span>2016-01-20</span></h2>
-                      <p>つぶやいたコメント</p>
+                      <h2><a href="#"><?php echo $post_each['nickname'].'<br>';?>
+                      </a> <span><?php echo $post_each['comment'].'<br>';?></span></h2>
+                      <p><?php echo $post_each['created'].'<br>'; ?></p>
                   </div>
               </div>
+              <?php }} ?>
           </article>
 
           <article class="timeline-entry begin">
